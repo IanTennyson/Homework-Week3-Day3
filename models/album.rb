@@ -47,4 +47,39 @@ attr_writer :title, :genre
     return albums
   end
 
+    def artist()
+
+      sql = "SELECT * FROM artists WHERE id = #{@artist_id}"
+
+      result = SqlRunner.run(sql)
+
+      return Artist.new(result.first())
+
+    end
+
+    def update()
+      
+      sql = "UPDATE albums SET (title, genre) = (
+      '#{@title}', '#{genre}') WHERE id = #{@id}"
+
+       result = SqlRunner.run(sql)
+
+       return result
+    end
+
+    def delete()
+      sql = "DELETE FROM albums WHERE id = #{@id}"
+      SqlRunner.run(sql)
+    end
+
+    def self.find_by_id(id)
+      sql = "SELECT * FROM album WHERE id = #{@id}"
+
+      result = SqlRunner.run(sql)
+
+      albums = result.map { |album| Album.new(album) }
+
+      return albums
+    end
+
 end

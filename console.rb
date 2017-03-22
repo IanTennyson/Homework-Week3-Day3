@@ -40,6 +40,11 @@ album4.save()
 
 
 
+# album1.delete()
+# album2.delete()
+
+# artist1.delete()
+
 
 
 binding.pry

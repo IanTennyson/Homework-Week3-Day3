@@ -38,6 +38,42 @@ attr_reader :id, :name
     return artists
   end
 
+  def self.find_by_id(id)
+    sql = "SELECT * FROM artists WHERE id = #{@id}"
+
+    result = SqlRunner.run(sql)
+
+    artists = result.map { |artist| Artist.new(artist) }
+
+    return artists
+  end
+
+  def albums()
+    sql = "SELECT * FROM albums WHERE
+     artist_id = #{@id}"
+
+    result = SqlRunner.run(sql)
+
+    albums = result.map { |album| Album.new(album) }
+    
+    return albums
+  end
+
+    def update()
+      
+      sql = "UPDATE artists SET (name) = (
+      '#{@name}') WHERE id = #{@id}"
+
+       result = SqlRunner.run(sql)
+
+       return result
+    end
+
+    def delete()
+      sql = "DELETE FROM artists WHERE id = #{@id}"
+      SqlRunner.run(sql)
+    end
+
 
 
 end
