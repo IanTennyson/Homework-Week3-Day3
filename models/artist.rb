@@ -1,5 +1,6 @@
 require('pg')
 require_relative('../db/sql_runner')
+require_relative('album')
 
 
 class Artist
@@ -23,8 +24,15 @@ attr_reader :id, :name
     @id = SqlRunner.run(sql).first()['id'].to_i
   end
 
-  def self.delete_all
+  def self.delete_all()
     sql = "DELETE FROM artists"
+    result = SqlRunner.run(sql)
+    artists = result.map { |artist| Artist.new(artist) }
+    return artists
+  end
+
+  def self.all()
+    sql = "SELECT * FROM artists"
     result = SqlRunner.run(sql)
     artists = result.map { |artist| Artist.new(artist) }
     return artists
